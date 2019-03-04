@@ -10,12 +10,23 @@ module.exports = {
         "no-function-dependency": {
             create(context) {
                 var functionScopes = [];
+                // method that gets the name of the function depending on its type.
+                function getParentFunctionName(scope) {
+                    // if it is a function declaration
+                     if(scope.block.id){
+                        return scope.block.id.name;
+                     } else if(scope.block.parent.key){ // if it is a method defination
+                       return scope.block.parent.key.name;
+                     } else { // it is a function expression
+                       return scope.block.parent.id.name;
+                     }
+                  }
                 function checkInGivenParentScope (references, parentScope,selfScopeVariables){
                     var parentScopevariables = parentScope.variables.filter((item)=>{
                         return (item.name !== 'arguments')
                         }).map(item => item.name),
                         dependent = false,
-                        functionName = parentScope.block.parent.key.name,
+                        functionName =  getParentFunctionName(parentScope),
                         i;
                         for (i = 0; i < references.length; i++){
                             // check if the current function scope if referencing a variable of its parent scope.
