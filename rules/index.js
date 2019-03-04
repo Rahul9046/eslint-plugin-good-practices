@@ -105,6 +105,31 @@ module.exports = {
                 };
         
             }
+        },
+        "no-anonymous-handler": {
+            create(context) {
+                // function that checks if the node is a function expression. if false then skip
+                // that node. else check if its name is given
+                function checkAnonymousHandler(node){
+                    var isFunctionExpression = /FunctionExpression/ig.test(node.type);
+                    if (!isFunctionExpression){
+                        return true;
+                    }
+                    return node.id !== null;
+                  }
+                return {
+                    "CallExpression"(node) {
+                        if (node.arguments.length !==2 || node.callee.property.name !== 'addEventListener' ||
+                        checkAnonymousHandler(node.arguments[1])){
+                          return;
+                         }
+                      context.report({
+                      node: node.arguments[1],
+                      message: 'Do not create anonymous handlers'
+                      });
+                      }
+                  };
+            }
         }
     }
 };
