@@ -21,6 +21,16 @@ module.exports = {
                        return scope.block.parent.id.name;
                      }
                   }
+                // function to get all the reference of itself and its childs'
+                function getAllReferences (scope, referenceArr){ 
+                    scope.references.forEach(function(reference){
+                      referenceArr.push(reference);
+                    });
+                    scope.childScopes.forEach(function(childScope){
+                      referenceArr = getAllReferences(childScope, referenceArr);
+                    });
+                    return referenceArr;
+                }
                 function checkInGivenParentScope (references, parentScope,selfScopeVariables){
                     var parentScopevariables = parentScope.variables.filter((item)=>{
                         return (item.name !== 'arguments')
@@ -74,7 +84,7 @@ module.exports = {
                         if (scope.upper.type === 'function'){
                             functionScopes.push({
                                 node: scope.block,
-                                references: scope.references,
+                                references: getAllReferences(scope, []),
                                 scope,
                                 isDependent: false,
                                 scopeShift: 0
