@@ -1,5 +1,5 @@
 {
     "name": "eslint-plugin-good-practices",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "./rules/index.js"
   }
