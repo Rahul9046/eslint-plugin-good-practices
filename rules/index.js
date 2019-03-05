@@ -129,7 +129,11 @@ module.exports = {
                   }
                 return {
                     "CallExpression"(node) {
-                        if (node.arguments.length !==2 || node.callee.property.name !== 'addEventListener' ||
+                        // it checks whether the callee of the call expression has a property value and the expression was called
+                        // using two arguments. if both the conditions satisfy then check whether the property name is 'addEventListener'.
+                        // If true then check whether the second argument (which is the handler) is an anonymous. if any of the given 
+                        // conditions do not satisfy then skip that node. 
+                        if (node.arguments.length !==2 || !node.callee.property || node.callee.property.name !== 'addEventListener' ||
                         checkAnonymousHandler(node.arguments[1])){
                           return;
                          }
