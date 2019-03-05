@@ -21,6 +21,16 @@ module.exports = {
                        return scope.block.parent.id.name;
                      }
                   }
+                // function to get all the reference of itself and its childs'
+                function getAllReferences (scope, referenceArr){ 
+                    scope.references.forEach(function(reference){
+                      referenceArr.push(reference);
+                    });
+                    scope.childScopes.forEach(function(childScope){
+                      referenceArr = getAllReferences(childScope, referenceArr);
+                    });
+                    return referenceArr;
+                }
                 function checkInGivenParentScope (references, parentScope,selfScopeVariables){
                     var parentScopevariables = parentScope.variables.filter((item)=>{
                         return (item.name !== 'arguments')
@@ -74,7 +84,7 @@ module.exports = {
                         if (scope.upper.type === 'function'){
                             functionScopes.push({
                                 node: scope.block,
-                                references: scope.references,
+                                references: getAllReferences(scope, []),
                                 scope,
                                 isDependent: false,
                                 scopeShift: 0
@@ -119,7 +129,11 @@ module.exports = {
                   }
                 return {
                     "CallExpression"(node) {
-                        if (node.arguments.length !==2 || node.callee.property.name !== 'addEventListener' ||
+                        // it checks whether the callee of the call expression has a property value and the expression was called
+                        // using two arguments. if both the conditions satisfy then check whether the property name is 'addEventListener'.
+                        // If true then check whether the second argument (which is the handler) is an anonymous. if any of the given 
+                        // conditions do not satisfy then skip that node. 
+                        if (node.arguments.length !==2 || !node.callee.property || node.callee.property.name !== 'addEventListener' ||
                         checkAnonymousHandler(node.arguments[1])){
                           return;
                          }
