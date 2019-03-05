@@ -193,6 +193,97 @@ module.exports = {
                   
                 }
             }
+        },
+        "no-single-usage-variable": {
+            create(context) {
+                var functionScopes = [];
+                    function countNumberOfUsages(toCheckNode, allReferences){
+                        for (var i = 0; i < allReferences.length; i++){
+                            if (toCheckNode.node.name === allReferences[i].identifier.name){
+                            toCheckNode.usageNumber++;
+                            }
+                        }
+                    }
+                    function checkUsages(){
+                        var declaredVarNodes,
+                            i;
+                        functionScopes.forEach(function(scopeObj){
+                            declaredVarNodes = scopeObj.declaredVarNodes;
+                            if (scopeObj.referedInScope.length){
+                                for (i = 0; i < declaredVarNodes.length; i++){
+                                    countNumberOfUsages(declaredVarNodes[i], scopeObj.referedInScope);
+                                }
+                            }
+                        });
+                    }
+                    function getDeclaredVariableNodes (){
+                        var i,
+                            scopeReferences;
+                        functionScopes.forEach(function(scopeObj){
+                            scopeObj.declaredVarNodes = [];
+                            scopeReferences = scopeObj.scope.references;
+                            for (i = 0; i < scopeReferences.length; i++){
+                            if((scopeReferences[i].identifier.parent.type === 'VariableDeclarator' && 
+                                scopeReferences[i].identifier.parent.init.type !== 'FunctionExpression') ||
+                                (scopeReferences[i].identifier.parent.type === 'AssignmentExpression' &&
+                                scopeReferences[i].identifier.parent.right.type !== 'FunctionExpression')){
+                                scopeObj.declaredVarNodes.push({
+                                node: scopeReferences[i].identifier,
+                                usageNumber: 0
+                                });
+                            }
+                            }
+                        });
+                    }
+                    function getAllFunctionScopes(currScope){
+                        var childScopes = currScope.childScopes;
+                        childScopes.forEach((scope)=>{
+                            if (scope.type === 'function'){
+                            functionScopes.push({
+                                node: scope.block,
+                                referedInScope: getAllReferences(scope, []),
+                                scope
+                            });
+                            }
+                            if (scope.childScopes.length){
+                                getAllFunctionScopes(scope); 
+                            }
+                        });
+                    }
+                    function getAllReferences (scope, referenceArr){ 
+                        scope.references.forEach(function(reference){
+                            if (reference.identifier.parent.type !== 'VariableDeclarator' && reference.identifier.parent.type !== 'AssignmentExpression'){
+                                referenceArr.push(reference);
+                            }
+                        });
+                        scope.childScopes.forEach(function(childScope){
+                            referenceArr = getAllReferences(childScope, referenceArr);
+                        });
+                        return referenceArr;
+                    }
+                  return {
+                    "Program:exit"(programNode) {
+                        var globalScope = context.getScope().childScopes[0],
+                            declaredNodesInScope,
+                            i,
+                            j;
+                        getAllFunctionScopes(globalScope);
+                        getDeclaredVariableNodes();
+                        checkUsages();
+                        for(i = 0; i < functionScopes.length; i++){
+                          declaredNodesInScope = functionScopes[i].declaredVarNodes;
+                          for(j = 0; j < declaredNodesInScope.length; j++){
+                               if (declaredNodesInScope[j].usageNumber === 1){
+                                   context.report({
+                                      node: declaredNodesInScope[j].node,
+                                      message: "Do not declare variables that are used only once"
+                                   });
+                                }
+                          }
+                         }
+                      }
+                    }  
+            }
         }
     }
 };
