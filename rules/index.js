@@ -197,6 +197,10 @@ module.exports = {
         "no-single-usage-variable": {
             create(context) {
                 var functionScopes = [];
+                // function that checks whether both the nodes are same
+                function notSameNode(node1, node2){
+                    return node1.name !== node2.name
+                 }
                 // function that counts the number of times a variable is referred in a function scope
                 // and all its child block scopes
                 function countNumberOfUsages(toCheckNode, allReferences){
@@ -227,15 +231,17 @@ module.exports = {
                         scopeObj.declaredVarNodes = [];
                         scopeReferences = scopeObj.scope.references;
                         for (i = 0; i < scopeReferences.length; i++){
-                        if((scopeReferences[i].identifier.parent.type === 'VariableDeclarator' && 
-                            scopeReferences[i].identifier.parent.init.type !== 'FunctionExpression') ||
-                            (scopeReferences[i].identifier.parent.type === 'AssignmentExpression' &&
-                            scopeReferences[i].identifier.parent.right.type !== 'FunctionExpression')){
-                            scopeObj.declaredVarNodes.push({
-                            node: scopeReferences[i].identifier,
-                            usageNumber: 0
-                            });
-                        }
+                            if((scopeReferences[i].identifier.parent.type === 'VariableDeclarator' && 
+                                scopeReferences[i].identifier.parent.init.type !== 'FunctionExpression' &&
+                                notSameNode(scopeReferences[i].identifier, scopeReferences[i].identifier.parent.init)) ||
+                                (scopeReferences[i].identifier.parent.type === 'AssignmentExpression' &&
+                                scopeReferences[i].identifier.parent.right.type !== 'FunctionExpression' &&
+                                notSameNode(scopeReferences[i].identifier, scopeReferences[i].identifier.parent.right))){
+                                    scopeObj.declaredVarNodes.push({
+                                    node: scopeReferences[i].identifier,
+                                    usageNumber: 0
+                                    });
+                            }
                         }
                     });
                 }
@@ -258,8 +264,13 @@ module.exports = {
                 // function to get all the references inside a function scope as well as its child scopes.
                 function getAllReferences (scope, referenceArr){ 
                     scope.references.forEach(function(reference){
-                        if (reference.identifier.parent.type !== 'VariableDeclarator' && reference.identifier.parent.type !== 'AssignmentExpression'){
-                            referenceArr.push(reference);
+                        if ((reference.identifier.parent.type !== 'VariableDeclarator' ||
+                            (reference.identifier.parent.type === 'VariableDeclarator' &&
+                            !notSameNode(reference.identifier, reference.identifier.parent.init))) && 
+                            (reference.identifier.parent.type !== 'AssignmentExpression') ||
+                            (reference.identifier.parent.type === 'AssignmentExpression' &&
+                            !notSameNode(reference.identifier, reference.identifier.parent.right))){
+                                referenceArr.push(reference);
                         }
                     });
                     scope.childScopes.forEach(function(childScope){
