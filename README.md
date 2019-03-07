@@ -6,7 +6,7 @@ An eslint plugin that contains custom rules which helps developers to write bett
    npm install --save-dev eslint-plugin-good-practices
 ```
 
-#Usage
+# Usage
 
 Follow the given steps to use this plugin: 
   - Install the plugin
