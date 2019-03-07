@@ -20,5 +20,10 @@
   "devDependencies": {
     "eslint": "^5.15.1",
     "mocha": "^6.0.2"
+  },
+  "pre-commit": {
+    "run": [
+      "test"
+    ]
   }
 }
