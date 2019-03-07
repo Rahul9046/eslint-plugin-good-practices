@@ -14,6 +14,10 @@ module.exports =  {
                 category: "Variables",
                 recommended: true,
                 url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-static-strings-in-scope.md"
+            },
+            messages: {
+                "unexpected-declaration": "Do not declare variables with constant string inside a block scope",
+                "unexpected-assignment": "Do not assign variables with constant string inside a block scope"
             }
         },
         create(context) {
@@ -48,7 +52,7 @@ module.exports =  {
                  }
                 context.report({
                   node,
-                  message: 'Do not declare variables with constant string inside a block scope'  
+                  messageId: 'unexpected-declaration'  
                 });
                 },
               "AssignmentExpression"(node) {
@@ -57,7 +61,7 @@ module.exports =  {
                  }
                 context.report({
                   node,
-                  message: 'Do not assign variables with constant string inside a block scope'  
+                  messageId: 'unexpected-assignment' 
                 });
                 }
               

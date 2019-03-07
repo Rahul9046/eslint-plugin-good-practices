@@ -1,5 +1,19 @@
+/**
+ * @fileoverview Tests for no-anonymous-handler rule.
+ * @author Rahul Das
+ */
+
+"use strict";
+
+//------------------------------------------------------------------------------
+// Requirements
+//------------------------------------------------------------------------------
 const rule = require('../rules/no-anonymous-handler')['no-anonymous-handler'];
 const RuleTester = require("eslint").RuleTester;
+
+//------------------------------------------------------------------------------
+// Tests
+//------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester();
 

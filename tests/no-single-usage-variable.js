@@ -1,6 +1,20 @@
+
+/**
+ * @fileoverview Tests for no-single-usage-variable rule.
+ * @author Rahul Das
+ */
+
+"use strict";
+
+//------------------------------------------------------------------------------
+// Requirements
+//------------------------------------------------------------------------------
 const rule = require('../rules/no-single-usage-variable')['no-single-usage-variable'];
 const RuleTester = require("eslint").RuleTester;
 
+//------------------------------------------------------------------------------
+// Tests
+//------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester();
 
