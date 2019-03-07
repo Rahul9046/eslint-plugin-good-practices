@@ -26,7 +26,7 @@ module.exports = {
                  } else if(scope.block.parent.key){ // if it is a method defination
                    return scope.block.parent.key.name;
                  } else { // it is a function expression
-                   return scope.block.parent.id.name;
+                   return scope.block.parent.id && scope.block.parent.id.name;
                  }
               }
             // function to get all the reference of itself and its childs'
