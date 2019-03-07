@@ -14,6 +14,9 @@ module.exports = {
                 category: "Variables",
                 recommended: true,
                 url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-single-usage-variable.md"
+            },
+            messages: {
+                unexpected: "Do not declare variables that are used only once"
             }
         },
         create(context) {
@@ -115,12 +118,12 @@ module.exports = {
                     declaredNodesInScope = functionScopes[i].declaredVarNodes;
                     for(j = 0; j < declaredNodesInScope.length; j++){
                         // if the number of usages is equal to one then report that node.
-                        if (declaredNodesInScope[j].usageNumber === 1){
+                       if (declaredNodesInScope[j].usageNumber === 1){
                             context.report({
                                 node: declaredNodesInScope[j].node,
-                                message: "Do not declare variables that are used only once"
+                                messageId: 'unexpected'
                             });
-                        }
+                       }
                     }
                     }
                 }

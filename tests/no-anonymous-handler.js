@@ -1,8 +1,6 @@
 const rule = require('../rules/no-anonymous-handler')['no-anonymous-handler'];
 const RuleTester = require("eslint").RuleTester;
 
-const ERROR_MSG = 'Do not create anonymous handlers.';
-
 const ruleTester = new RuleTester();
 
 ruleTester.run("no-anonymous-handler", rule, {
