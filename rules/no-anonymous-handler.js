@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Rules to disallow the creation of anonymous handlers for events
+ * @author Rahul Das
+ */
 
 "use strict";
 

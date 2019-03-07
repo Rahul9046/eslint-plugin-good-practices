@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Rules to disallow assigning of variables with static strings within a function scope
+ * @author Rahul Das
+ */
 
 "use strict";
 

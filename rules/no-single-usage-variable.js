@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Rules to disallow the declaration of variables that are used only once within a function scope
+ * @author Rahul Das
+ */
 
 "use strict";
 
@@ -6,7 +10,7 @@ module.exports = {
         meta: {
             type: "suggestion",   
             docs: {
-                description: "disallow the declaration of variables that are used only once within a function scope",
+                description: "disallow declaration of variables that are used only once within a function scope",
                 category: "Variables",
                 recommended: true,
                 url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-single-usage-variable.md"

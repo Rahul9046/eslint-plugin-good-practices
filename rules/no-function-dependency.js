@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Rules to disallow the creation of independent functions
+ * @author Rahul Das
+ */
 
 "use strict";
 

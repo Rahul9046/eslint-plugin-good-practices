@@ -1,8 +1,3 @@
-/**
- * @fileoverview Rules that helps developers in writing cleaner codes
- * @author Rahul Das
- */
-
 "use strict";
 
 const no_single_usage_variable  = require('./no-single-usage-variable')['no-single-usage-variable'];
