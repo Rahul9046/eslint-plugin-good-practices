@@ -1,4 +1,4 @@
-# disallow creation of `variables` that are used only once within a `function scope`
+# disallow declaration of `variables` that are used only once within a `function scope`
 
 Variables that are used only once throughout the scope of the function should not be created, as there is
 no need for creation of such variables and assigning memory for it. The values can be used directly.
@@ -12,7 +12,7 @@ no need for creation of such variables and assigning memory for it. The values c
 
 # Rule Details
 
-This rules disallows the creation of independent functions.
+This rules disallows the declaration of variables that are used only once within a function scope.
 
 Examples of **incorrect** code for this rule:
 

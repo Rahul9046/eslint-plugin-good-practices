@@ -1,5 +1,17 @@
+
+"use strict";
+
 module.exports = {
     "no-function-dependency": {
+        meta: {
+            type: "suggestion",   
+            docs: {
+                description: "disallow creation of independent functions",
+                category: "Functions",
+                recommended: true,
+                url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-function-dependency.md"
+            }
+        },
         create(context) {
             var functionScopes = [];
             // method that gets the name of the function depending on its type.

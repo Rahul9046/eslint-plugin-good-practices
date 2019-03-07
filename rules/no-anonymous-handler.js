@@ -1,5 +1,17 @@
+
+"use strict";
+
 module.exports = {
     "no-anonymous-handler": {
+        meta: {
+            type: "suggestion",   
+            docs: {
+                description: "disallow creation of anonymous handlers for events",
+                category: "Functions",
+                recommended: true,
+                url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-anonymous-handler.md"
+            }
+        },
         create(context) {
             // function that checks if the node is a function expression. if false then skip
             // that node. else check if its name is given

@@ -1,5 +1,17 @@
+
+"use strict";
+
 module.exports =  {
     "no-static-strings-in-scope": {
+        meta: {
+            type: "suggestion",   
+            docs: {
+                description: "disallow assigning variables with static strings within a function scope",
+                category: "Variables",
+                recommended: true,
+                url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-static-strings-in-scope.md"
+            }
+        },
         create(context) {
             // function that checks whether any static string is assigned to a variable
             // returns false if its gets such node denoting a valid node. else returns

@@ -2,12 +2,13 @@
  * @fileoverview Rules that helps developers in writing cleaner codes
  * @author Rahul Das
  */
+
+"use strict";
+
 const no_single_usage_variable  = require('./no-single-usage-variable')['no-single-usage-variable'];
 const no_static_strings_in_scope  = require('./no-static-strings-in-scope')['no-static-strings-in-scope'];
 const no_anonymous_handler  = require('./no-anonymous-handler')['no-anonymous-handler'];
 const no_function_dependency = require('./no-function-dependency')['no-function-dependency'];
-
-"use strict";
 
 module.exports = {
     rules: {

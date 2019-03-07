@@ -1,5 +1,17 @@
+
+"use strict";
+
 module.exports = {
     "no-single-usage-variable" : {
+        meta: {
+            type: "suggestion",   
+            docs: {
+                description: "disallow the declaration of variables that are used only once within a function scope",
+                category: "Variables",
+                recommended: true,
+                url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-single-usage-variable.md"
+            }
+        },
         create(context) {
             var functionScopes = [];
             // function that checks whether both the nodes are same
