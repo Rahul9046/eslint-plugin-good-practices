@@ -1,5 +1,5 @@
 # eslint-plugin-good-practices
-An eslint plugin that contains custom rules which helps developers to write better JavaScript codes.
+An eslint plugin that contains custom rules, which helps in writing better JavaScript codes.
 
 # Install from npm
 ```js
@@ -23,7 +23,7 @@ Follow the given steps to use this plugin:
 
   If you want to add a new rule: 
   - Fork the repository.
-  - Add the new rule inside the `rules` directory and import the rule inside the index file of the same directory.
+  - Add the new rule inside the `rules` directory and import the rule inside the `index` file of the same directory.
   - Add a doc for that rule inside `docs` directory.
   - Send PR!
 
