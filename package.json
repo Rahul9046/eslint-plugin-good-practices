@@ -1,17 +1,21 @@
 {
-    "name": "eslint-plugin-good-practices",
-    "description": "An eslint plugin that contains custom rules which helps developers to write better codes",
-    "license": "MIT",
-    "author": "Rahul Das <rahuld707@gmail.com>",
-    "version": "1.0.3-rc.2",
-    "main": "./rules/index.js",
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/Rahul9046/eslint-plugin-good-practices"
-    },
-    "keywords": [
-      "good-practices",
-      "eslint-plugin",
-      "custom-rules"
-    ]
+  "name": "eslint-plugin-good-practices",
+  "description": "An eslint plugin that contains custom rules which helps developers to write better codes",
+  "license": "MIT",
+  "author": "Rahul Das <rahuld707@gmail.com>",
+  "version": "1.0.3-rc.2",
+  "main": "./rules/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rahul9046/eslint-plugin-good-practices"
+  },
+  "keywords": [
+    "good-practices",
+    "eslint-plugin",
+    "custom-rules"
+  ],
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "mocha": "^6.0.2"
   }
+}
