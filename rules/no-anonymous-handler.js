@@ -14,6 +14,9 @@ module.exports = {
                 category: "Functions",
                 recommended: true,
                 url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-anonymous-handler.md"
+            },
+            messages: {
+                unexpected: "Do not create anonymous handlers"
             }
         },
         create(context) {
@@ -38,7 +41,7 @@ module.exports = {
                      }
                   context.report({
                   node: node.arguments[1],
-                  message: 'Do not create anonymous handlers'
+                  messageId: 'unexpected'
                   });
                   }
               };
