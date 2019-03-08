@@ -51,11 +51,11 @@ module.exports = {
                         // also check if the function is not creating a new variable of the same name as the
                         // one defining in its parent function's scope. also if the function is accessing the 
                         // reference of its parent function through its name then it is a dependent function. 
-                          if ((references[i].identifier.name === functionName) || parentScopevariables.includes(references[i].identifier.name) &&
+                          if (references[i].identifier && ((references[i].identifier.name === functionName) || parentScopevariables.includes(references[i].identifier.name) &&
                              (references[i].identifier.parent.type !== 'VariableDeclarator' ||
                               (references[i].identifier.parent.type === 'VariableDeclarator' &&
-                              references[i].identifier.parent.init.name === references[i].identifier.name)) &&
-                              (!selfScopeVariables.includes(references[i].identifier.name))){
+                              (references[i].identifier.parent.init && references[i].identifier.parent.init.name) === references[i].identifier.name)) &&
+                              (!selfScopeVariables.includes(references[i].identifier.name)))){
                                 dependent = true;
                                 break;
                           }
