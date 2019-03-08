@@ -14,6 +14,9 @@ module.exports = {
                 category: "Functions",
                 recommended: true,
                 url: "https://github.com/Rahul9046/eslint-plugin-good-practices/blob/master/docs/no-anonymous-handler.md"
+            },
+            messages: {
+                unexpected: "Do not create anonymous handlers"
             }
         },
         create(context) {
@@ -29,16 +32,16 @@ module.exports = {
             return {
                 "CallExpression"(node) {
                     // it checks whether the callee of the call expression has a property value and the expression was called
-                    // using two arguments. if both the conditions satisfy then check whether the property name is 'addEventListener'.
+                    // using two arguments. if both the conditions satisfy then check whether the property name is 'addEventListener' or 'attachEvent'.
                     // If true then check whether the second argument (which is the handler) is an anonymous. if any of the given 
                     // conditions do not satisfy then skip that node. 
-                    if (node.arguments.length !==2 || !node.callee.property || node.callee.property.name !== 'addEventListener' ||
-                    checkAnonymousHandler(node.arguments[1])){
-                      return;
+                    if (node.arguments.length !==2 || !node.callee.property || (node.callee.property.name !== 'addEventListener' &&
+                        node.callee.property.name !== 'attachEvent') || checkAnonymousHandler(node.arguments[1])){
+                            return;
                      }
                   context.report({
                   node: node.arguments[1],
-                  message: 'Do not create anonymous handlers'
+                  messageId: 'unexpected'
                   });
                   }
               };
