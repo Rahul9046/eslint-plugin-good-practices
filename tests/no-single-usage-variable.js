@@ -31,6 +31,10 @@ ruleTester.run("no-single-usage-variable", rule, {
         {
             code: 'class abc{ fn(){ let config = this.config, prop1 = config.prop1;} }', parserOptions: { sourceType: "module" }, 
             errors: [{ messageId: "unexpected" }] 
+        },
+        {
+            code: '(function(){var a = 4,b = a;})()', parserOptions: { sourceType: "module" }, 
+            errors: [{ messageId: "unexpected" }] 
         }
     ]
 });
