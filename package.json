@@ -3,7 +3,7 @@
   "description": "An eslint plugin that contains custom rules which helps developers to write better codes",
   "license": "MIT",
   "author": "Rahul Das <rahuld707@gmail.com>",
-  "version": "1.0.3-rc.2",
+  "version": "1.0.3-rc.3",
   "main": "./rules/index.js",
   "repository": {
     "type": "git",
