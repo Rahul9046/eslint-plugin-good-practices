@@ -21,8 +21,8 @@ ruleTester.run("no-anonymous-handler", rule, {
     valid: [
         'function logMsg(){console.log("hovered");};document.addEventListener("mouseover", logMsg);',
         'function logMsg(){console.log("clicked");};document.attachEvent("onclick", logMsg);',
-        'document.attachEvent("onlcick", function fn(){console.log("clicked");});',
-        'document.attachEvent("onlcick", function fn(){console.log("clicked");});'
+        'document.attachEvent("onclick", function fn(){console.log("clicked");});',
+        'document.attachEvent("onclick", function fn(){console.log("clicked");});'
     ],
     invalid: [
         {
@@ -30,7 +30,7 @@ ruleTester.run("no-anonymous-handler", rule, {
             errors: [{ messageId: "unexpected" }]
         },
         {
-            code: 'document.attachEvent("onlcick", function (){console.log("clicked");});',
+            code: 'document.attachEvent("onclick", function (){console.log("clicked");});',
             errors: [{ messageId: "unexpected" }]
         },
         {
