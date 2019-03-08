@@ -23,7 +23,7 @@ module.exports = {
             var functionScopes = [];
             // function that checks whether both the nodes are same
             function notSameNode(node1, node2){
-                return node1.name !== node2.name
+                return (node1 && node1.name) !== (node2 && node2.name)
              }
             // function that counts the number of times a variable is referred in a function scope
             // and all its child block scopes
@@ -55,12 +55,12 @@ module.exports = {
                     scopeObj.declaredVarNodes = [];
                     scopeReferences = scopeObj.scope.references;
                     for (i = 0; i < scopeReferences.length; i++){
-                        if((scopeReferences[i].identifier.parent.type === 'VariableDeclarator' && 
-                            scopeReferences[i].identifier.parent.init.type !== 'FunctionExpression' &&
-                            notSameNode(scopeReferences[i].identifier, scopeReferences[i].identifier.parent.init)) ||
-                            (scopeReferences[i].identifier.parent.type === 'AssignmentExpression' &&
-                            scopeReferences[i].identifier.parent.right.type !== 'FunctionExpression' &&
-                            notSameNode(scopeReferences[i].identifier, scopeReferences[i].identifier.parent.right))){
+                        if(((scopeReferences[i].identifier.parent && scopeReferences[i].identifier.parent.type === 'VariableDeclarator') && 
+                        (scopeReferences[i].identifier.parent.init && scopeReferences[i].identifier.parent.init.type !== 'FunctionExpression') &&
+                        notSameNode(scopeReferences[i].identifier, scopeReferences[i].identifier.parent.init)) ||
+                        ((scopeReferences[i].identifier.parent && scopeReferences[i].identifier.parent.type === 'AssignmentExpression') &&
+                        (scopeReferences[i].identifier.parent.right && scopeReferences[i].identifier.parent.right.type !== 'FunctionExpression') &&
+                        notSameNode(scopeReferences[i].identifier, scopeReferences[i].identifier.parent.right))){
                                 scopeObj.declaredVarNodes.push({
                                 node: scopeReferences[i].identifier,
                                 usageNumber: 0
