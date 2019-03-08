@@ -10,11 +10,11 @@ An eslint plugin that contains custom rules, which helps in writing better JavaS
 
 Follow the given steps to use this plugin: 
   - Install the plugin
-  - Open `.eslintrc.js` file
+  - Open `.eslintrc` file
   - Add `good-practices` inside plugins array if present, else create one and then add in it.
-  - Inside rules object mention the rules you want to use from the plugin. For eg: If you want to use `no-anonymous-handler` rule, then add the given below line in the rules object. This will show a warning if you use anonymous handler in your code.:
+  - Inside rules object mention the rules you want to use from the plugin. For eg: If you want to use `no-anonymous-handler` rule, then add the line given below inside the rules object. This will show a warning if you use anonymous handler in your code.:
   ```js
-        "good-practices/no-anonymous-handler" : "warn"
+    "good-practices/no-anonymous-handler" : "warn"
   ```
 
   # Guideline for contribution
@@ -25,10 +25,12 @@ Follow the given steps to use this plugin:
   - Fork the repository.
   - Add the new rule inside the `rules` directory and import the rule inside the `index` file of the same directory.
   - Add a doc for that rule inside `docs` directory.
+  - Add test cases for that rule inside `tests` directory.
   - Send PR!
 
   If you want to make changes in existing rules:
   - Fork the repository.
   - Make changes in the rule file.
   - Update its corresponding doc file present inside the `docs` directory, if needed.
+  - Update its corresponding test cases present inside the `tests` directory, if needed.
   - Send PR!
